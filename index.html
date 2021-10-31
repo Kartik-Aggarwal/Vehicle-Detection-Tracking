@@ -44,7 +44,65 @@
       {% if user.is_authenticated %}
       <h3 style="color:black; font-weight: bold;" class="center">Hello, {{user.first_name}}</h3>
       {% endif %}
-      <h1>Arya Rooms Accomodation</h1>
+      <h1>Arya Rooms
+        
+        
+        location_id = "";
+let sensors_data;
+let global_del_image_id = "";
+let ratio = {};
+let edit_ratio = {};
+var addSensorBtnClicked = false;
+var imgPos = [];
+let image; // Global Variable to store image informtion.
+let liveSensorData;
+let idOfSensorWhichIsClicked = null;
+$("#geoMap").fadeOut("fast");
+
+// Add New User
+document
+  .querySelector("#createUserForm-submit-btn")
+  .addEventListener("click", addNewUser);
+async function addNewUser(e) {
+  e.preventDefault();
+  try {
+    const email = document.getElementById("createUserForm-email").value;
+
+    if (!email) {
+      alert("Please enter a email address");
+      return;
+    }
+
+    const me = await myDetails();
+    let obj = {
+      admin: "orghead",
+      orghead: "user",
+    };
+
+    let formData = {
+      email,
+      type: obj[me.type],
+    };
+
+    console.log(formData);
+    // return
+
+    const settings = {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    };
+    let response = await fetch("/addUser", settings);
+    let data = await response.json();
+
+    if (data.status == 400) {
+      alert(data.msg);
+      return;
+    } else {
+Accomodation</h1>
       <h5>Best place to stay on</h5>
       <div style="margin-top: 2.5rem;">
         <a href="registration" class="booking-btn">Book Your Seat</a>
